@@ -5,13 +5,15 @@ function handleSubmit(event) {
 
     const city = event.target.city.value;
     
+    
+    
     if (city === "" || city.length < 3){
         alert("city mustn't be empty, more than 3 characters needed");
         
          event.preventDefault();
     }
     else {
-       console.log(handleFetch(city));
+       displayInfo(handleFetch(city));
        event.preventDefault();
       
     }
@@ -26,21 +28,32 @@ function handleFetch(city) {
 
     fetch(`https://api.weatherapi.com/v1/forecast.json?key=827d353bd9654d2495f54235231611&q=${city}&days=7&aqi=no&alerts=no`)
 
-    .then((response) => {
-        if (!response.ok){
-            throw new Error("trash response: " + response.status.Text);
-        }
-
-        return response.json();
+    .then((response) => response.json())
 
 
-    })
+    .then((data) => {
+        
+        console.log(data);
 
-    .then((data) => console.log(data))
+
+    }
+
+    )
 
     .catch((error) => console.error("data trash: ", error));
 
 
 
 
+}
+
+function displayInfo(data) {
+    let responseBlock = document.getElementById("bruh").textContent;
+    responseBlock = data.location.name;
+    console.log(data.target.location.name);
+    data.preventDefault();
+
+
+
+    
 }

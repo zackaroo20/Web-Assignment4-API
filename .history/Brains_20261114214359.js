@@ -1,0 +1,49 @@
+"use strict";
+
+function handleSubmit(event) {
+   
+
+    const city = event.target.city.value;
+    const responseBlock = document.getElementById("response").innerHTML;
+    
+    
+    if (city === "" || city.length < 3){
+        alert("city mustn't be empty, more than 3 characters needed");
+        
+         event.preventDefault();
+    }
+    else {
+       console.log(handleFetch(city));
+       event.preventDefault();
+      
+    }
+
+   
+}
+const form = document.getElementsByTagName('form')[0];
+form.addEventListener("submit", handleSubmit);
+
+function handleFetch(city) {
+
+
+    fetch(`https://api.weatherapi.com/v1/forecast.json?key=827d353bd9654d2495f54235231611&q=${city}&days=7&aqi=no&alerts=no`)
+
+    .then((response) => {
+        if (!response.ok){
+            throw new Error("trash response: " + response.status.Text);
+        }
+
+        response.json();
+        return response.data.location.name;
+
+
+    })
+
+    .then((data) => console.log(data))
+
+    .catch((error) => console.error("data trash: ", error));
+
+
+
+
+}
