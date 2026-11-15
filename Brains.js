@@ -4,14 +4,16 @@ function handleSubmit(event) {
    
 
     const city = event.target.city.value;
-    const responseBlock = getElementById("response").InnerHTML;
+    
     if (city === "" || city.length < 3){
         alert("city mustn't be empty, more than 3 characters needed");
+        
          event.preventDefault();
     }
     else {
-       responseBlock = handleFetch(city);
+       console.log(handleFetch(city));
        event.preventDefault();
+      
     }
 
    
