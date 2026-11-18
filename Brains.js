@@ -3,7 +3,7 @@
 function handleSubmit(event) {
    
 
-    const city = event.target.city.value;
+    const city = document.getElementById("cityInput").value;
     
     
     
@@ -13,15 +13,16 @@ function handleSubmit(event) {
          event.preventDefault();
     }
     else {
-       displayInfo(handleFetch(city));
+       handleFetch(city);
+       
        event.preventDefault();
       
     }
 
    
 }
-const sub = document.getElementById('sub').value;
-sub.addEventListener("submit", handleSubmit);
+const sub = document.getElementById('submitBtn');
+sub.addEventListener("click", handleSubmit);
 
 function handleFetch(city) {
 
@@ -34,17 +35,20 @@ function handleFetch(city) {
          response.json())
 
     .then(data =>
-         console.log(data))
+         displayInfo(data))
 
     .catch((error) => 
         console.error("data trash: ", error));
 }
 
 function displayInfo(data) {
-    let responseBlock = document.getElementById("bruh").textContent;
-    responseBlock = data.location.name;
-    console.log(data.target.location.name);
-    data.preventDefault();
+    let cityName = data.location.name;
+    let countryName = data.location.country;
+    let temp = data.current.temp_c;
+    let responseBlock = document.getElementById("bruh");
+    responseBlock.textContent = `Country: ${countryName}, City: ${cityName}, Temperature: ${temp}°C`;
+
+    
 
 
 
